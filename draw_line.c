@@ -31,41 +31,6 @@ void	ft_swap_d(double *x, double *y)
 	*y = z;
 }
 
-float	f_part(float x)
-{
-	x = (x > 0) ? x : -x;
-	while ((int)x)
-		x--;
-	x = round((x * 10)) / 10;
-	return (x);
-}
-
-float	rf_part(float x)
-{
-	return (1 - f_part(x));
-}
-
-int		rgb_a(int color, float a)
-{
-	int r_c;
-	int	r;
-	int g;
-	int b;
-
-	if (a >= 1)
-		return (color);
-	color &= 0x00ffffff;
-	r = color & 0x00ff0000;
-	g = color & 0x0000ff00;
-	b = color & 0x000000ff;
-	r_c = 0;
-	r_c |= (int)(a * r);
-	r_c &= 0x00ff0000;
-	r_c |= (int)(a * g);
-	r_c &= 0x00ffff00;
-	r_c |= (int)(a * b);
-	return (r_c);
-}
 
 int	get_point_colour(int start_colour, int end_colour, double diff)
 {
