@@ -1,24 +1,38 @@
 CC = gcc
-FLAGS = -lmlx -framework OpenGL -framework AppKit
-FLAGS_LINUX = -l mlx -L /usr/lib/x86_64-linux-gnu/ -l Xext -l m -l X11
+FLAGS =  -Wextra -Werror -Wall
+
+READ_INC = reading/
+READ_SRC = convert_lines.c normalizing.c reading.c strsplit_isspace.c
+OBJ_READ = $(READ_SRC:.c=.o)
+##-I /usr/local/include -L /usr/local/lib/ -l mlx -framework OpenGL -framework AppKit
+
 SRC_DIR = 
-INC_DIR = -I . -I libft/includes/
-SRCS = draw_line.c main.c  reading/*.c libft/libft.a
+INC_DIR = .
+SRCS = draw_line.c main.c
 OBJ = $(SRCS:.c=.o)
+
+LIB_INC = libft/includes
+LIB_DIR = libft/
+LIB_NAME = libft.a
+
 NAME = fdf
-LIB = make -C libft/ re
 
-all: $(LIB) $(NAME)
 
-allL:
-	make -C minilibx -f Makefile.gen all
-	$(LIB)
-	$(CC) $(SRCS) -o fdf $(FLAGS_LINUX) $(INC_DIR)
+all: $(LIB_NAME) $(NAME) 
 
-$(NAME):
-	$(CC) $(SRCS) -o $(NAME) $(FLAGS)
-	
+$(LIB_NAME):
+	make -C $(LIB_DIR) $(LIB_NAME)
+
+$(NAME): $(LIB_NAME)
+	$(CC) -c $(SRC_DIR)$(SRCS) $(addprefix $(READ_INC), $(READ_SRC)) -I $(INC_DIR) -I $(LIB_INC) $(FLAGS)
+	$(CC) $(OBJ) $(OBJ_READ) -o $(NAME) -L $(LIB_DIR) -lft -g
+
 clean:
-	rm -rf $(NAME)
+	rm -rf $(OBJ) $(OBJ_READ)
+	make -C $(LIB_DIR) clean
+	
+fclean:
+	$(clean) rm -rf $(NAME)
+	make -C $(LIB_DIR) fclean
 
-re: clean all
+re: fclean all

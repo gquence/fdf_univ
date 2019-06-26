@@ -6,23 +6,15 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 17:53:34 by dmelessa          #+#    #+#             */
-/*   Updated: 2019/04/22 16:29:27 by gquence          ###   ########.fr       */
+/*   Updated: 2019/06/26 18:33:59 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <unistd.h>
-#include <math.h>
-
-#define PI 3.14159265359
-#define RAD 0.01745329252
 
 t_mat3 get_scaling_matrix(double c)
 {
-	return ((t_mat3){
-					c, 0, 0,
-					0, c, 0,
-					0, 0, c});
+	return ((t_mat3){{c, 0, 0}, {0, c, 0}, {0, 0, c}});
 }
 
 t_mat3	matrices_multi(const t_mat3_ptr mat1, const t_mat3_ptr mat2)
@@ -164,11 +156,13 @@ t_vec3 rotate_xyz(const t_vec3_ptr v, double x, double y, double z)
 
 int	draw_image(void *param, t_point *points)
 {
-	void *mlx_ptr = ((t_param_ptr)param)->mlx_ptr;
-	void *win_ptr = ((t_param_ptr)param)->win_ptr;
+	void	*mlx_ptr;
+	void	*win_ptr;
 	int		i;
 
 	i = 0;
+	mlx_ptr = ((t_param_ptr)param)->mlx_ptr;
+	win_ptr = ((t_param_ptr)param)->win_ptr;
 	while (points[i + 1].coord.x != (double)POINT_END)
 	{
 		if (((i + 1) % (((t_param_ptr)param)->n_columns)))
@@ -182,12 +176,12 @@ int	draw_image(void *param, t_point *points)
 
 int key_event(int keycode, void *param)
 {
-	t_point *points;
+	t_point	*points;
 	t_mat3	a;
 	t_mat3	b;
 	t_param	*pr;
 	
-	pr = (t_param_ptr)param;	
+	pr = (t_param_ptr)param;
 	if (!(points = (t_point *)malloc(sizeof(t_point) * (((t_param_ptr)param)->n_elems + 1))))
 			exit(0);
 	points[((t_param_ptr)param)->n_elems].coord.x = POINT_END;
@@ -195,7 +189,7 @@ int key_event(int keycode, void *param)
 	{
 		mlx_destroy_window(pr->mlx_ptr, pr->win_ptr);
 		free(pr->points);
-		exit (0);	
+		exit (0);
 	}
 	/*
 	**управление инвертированное, потому значения противоположны привычному расположению клавиш
@@ -266,34 +260,20 @@ int key_event(int keycode, void *param)
 	return (0);
 }
 
-#include <fcntl.h>
-
 int	main(int ac, char **av)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_param param;
 	int		fd;
-	char	*name;
-	char	*msg = "Error! You entered the empty!";
-	int	flag = 0;
 
-	do
-	{
-		if (flag)
-			ft_putendl(msg);
-		ft_putstr("Enter the filename: ");
-		get_next_line(0, &name);
-		flag = 1;
-	}
-	while (!strlen(name));
-	if ((fd = open(name, O_RDONLY)) < 0)//проверка на ввод правильного имени
+	if (ac != 2)
+		return (1);
+	if ((fd = open(av[1], O_RDONLY)) < 0)//проверка на ввод правильного имени
 	{
 		ft_putendl("There is no file with this name!");
-		free(name);
 		return (-1);
 	}
-	free(name);
 	if (!read_field(fd, &param))//проверка на ошибки внутри поля
 	{
 		ft_putendl("invalid file! Amounts of elements in every line must be equal.\n Form of every element \"position of elem, colour\"\n");
@@ -304,7 +284,7 @@ int	main(int ac, char **av)
 	param.mlx_ptr = mlx_ptr;
 	param.win_ptr = win_ptr;
 	param.scaling = 1;
-	key_event(KEY_ONE_L, (void *)&param);
+	key_event(KEY_ONE, (void *)&param);
 	mlx_key_hook(win_ptr, key_event, (void *)&param);//отлавливание нажатий на клавиатуру и мышь
 	mlx_loop(mlx_ptr);
 

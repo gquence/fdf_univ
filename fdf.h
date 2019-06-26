@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelessa <dmelessa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 14:02:05 by dmelessa          #+#    #+#             */
-/*   Updated: 2019/04/29 15:16:55 by dmelessa         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:26:56 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,54 @@
 
 # include <stdlib.h>
 # include <math.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include "mlx.h"
 # include "libft.h"
 
+# define TOP_BORDER 0.95
 # define POINT_END -101
-
-typedef struct	s_point_2d
-{
-	int x;
-	int y;
-}				t_point_2d;
-
+# define FT_ABS(x) ((x >= 0) ? x : (-x))
 # define WIDTH 1360
 # define HEIGHT 710
+# define X_FACTOR (float)x_factor
+# define Y_FACTOR (float)y_factor
+# define PI 3.14159265359
+# define RAD 0.01745329252
 
 enum {
 	x_factor = WIDTH >> 1,
 	y_factor = HEIGHT >> 1
 };
 
-# define X_FACTOR (float)x_factor
-# define Y_FACTOR (float)y_factor
+typedef struct			s_point_2d
+{
+	int x;
+	int y;
+}						t_point_2d;
 
-typedef struct	s_vec3
+typedef struct			s_vec3
 {
 	double	x;
 	double	y;
 	double	z;
-}				t_vec3;
-typedef struct s_vec3 *t_vec3_ptr;
+}						t_vec3;
+typedef struct s_vec3	*t_vec3_ptr;
 
-typedef struct	s_point
+typedef struct			s_point
 {
 	t_vec3	coord;
 	int		colour;
-}				t_point;
+}						t_point;
 typedef struct s_point	*t_point_ptr;
 
-typedef struct	s_mat3
+typedef struct			s_mat3
 {
 	double	elems[3][3];
-}				t_mat3;
+}						t_mat3;
 typedef struct s_mat3	*t_mat3_ptr;
 
-typedef struct	s_param
+typedef struct			s_param
 {
 	void	*win_ptr;
 	void	*mlx_ptr;
@@ -67,23 +71,18 @@ typedef struct	s_param
 	double	angle_x;
 	double	angle_y;
 	double	angle_z;
-	int	n_columns;
-	int	n_lines;
-	int	n_elems;
-}				t_param;
+	int		n_columns;
+	int		n_lines;
+	int		n_elems;
+}						t_param;
 typedef struct s_param	*t_param_ptr;
-void		draw_brline(t_point start, t_point end, void *p_params);
 
-# include "libft.h"
-
-# define TOP_BORDER 0.95
-# define POINT_END -101
-# define FT_ABS(x) ((x >= 0) ? x : (-x))
-
-int		read_field(int fd, t_param_ptr params);
-char		**strsplit1(char const *s);
-int		normalize_arr_double(t_point *arr, int count);
-t_point		*convert_allpoints(char ***splitted, int rows, int columns);
+int						read_field(int fd, t_param_ptr params);
+char					**strsplit1(char const *s);
+int						normalize_arr_double(t_point *arr);
+t_point					*convert_allpoints(char ***splitted,
+							int rows, int columns);
+void					draw_brline(t_point start, t_point end, void *p_params);
 
 # define KEY_A 0
 # define KEY_B 11
@@ -131,7 +130,6 @@ t_point		*convert_allpoints(char ***splitted, int rows, int columns);
 # define KEY_SPACE 49
 # define KEY_ENTER 36
 # define KEY_ESC 53
-
 
 # define KEY_ESC_L 65307
 # define KEY_LEFT_L 65361

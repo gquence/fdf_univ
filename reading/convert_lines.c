@@ -74,7 +74,6 @@ int		convertstrs(char ***splitted, t_point *arrpoints)
 	int		x;
 	int		y;
 	char		*str;
-	char c;
 
 	i = 0;
 	x = 0;
@@ -111,6 +110,6 @@ t_point		*convert_allpoints(char ***splitted, int rows, int columns)
 		free(points);
 		return (NULL);
 	}
-	normalize_arr_double(points, (rows * columns));
+	normalize_arr_double(points);
 	return (points);
 }

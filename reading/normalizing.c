@@ -1,5 +1,16 @@
-#include "fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   normalizing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/26 17:47:33 by gquence           #+#    #+#             */
+/*   Updated: 2019/06/26 18:26:48 by gquence          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "fdf.h"
 
 static void	get_min_max(t_point *arr, double *pmax, double *pmin)
 {
@@ -36,7 +47,7 @@ static void	normalize_y(t_point *arr, double max, double min)
 	}
 }
 
-int	normalize_arr_double(t_point *arr, int count)
+int	normalize_arr_double(t_point *arr)
 {
 	double	max;
 	double	min;
@@ -45,6 +56,5 @@ int	normalize_arr_double(t_point *arr, int count)
 	i = 0;
 	get_min_max(arr, &max, &min);
 	normalize_y(arr, max, min);
-//	printf("\n%f\t%f\n",max, min);
-
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 15:54:23 by gquence           #+#    #+#             */
-/*   Updated: 2019/05/08 19:04:35 by gquence          ###   ########.fr       */
+/*   Updated: 2019/06/26 18:27:57 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	***splited_join(char ****p_arrsplited, char *line, int count)
 {
 	char	***result;
 	char	***buf;
-	int	len;
 
 	buf = *p_arrsplited;
 	if (!(result = (char ***)malloc(sizeof(char **) * (count + 2))))

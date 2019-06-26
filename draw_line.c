@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   DrawLine.c                                         :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 18:15:13 by gquence           #+#    #+#             */
-/*   Updated: 2019/04/29 15:49:50 by gquence          ###   ########.fr       */
+/*   Updated: 2019/06/26 17:35:14 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,21 @@ void	ft_swap_d(double *x, double *y)
 }
 
 
-int	get_point_colour(int start_colour, int end_colour, double diff)
+int	get_point_colour(int start_colour, int end_colour, int diff)
 {
-	int	result;
 	int	r;
 	int	g;
 	int	b;
 
 	if (((int)diff) == 0 || start_colour == end_colour)
 		return (end_colour);
-	result = 0;
 	r = start_colour & 0x00ff0000;
 	g = start_colour & 0x0000ff00;
 	b = start_colour & 0x000000ff;
-
-	r += ((end_colour & 0x00ff0000) - r) / (int)diff;
-	g += ((end_colour & 0x0000ff00) - g) / (int)diff;
-	b += ((end_colour & 0x000000ff) - b) / (int)diff;
-
+	r += ((end_colour & 0x00ff0000) - r) / diff;
+	g += ((end_colour & 0x0000ff00) - g) / diff;
+	b += ((end_colour & 0x000000ff) - b) / diff;
 	return ((r & 0x00ff0000) | (g & 0x0000ff00) | (b & 0x000000ff));
-//	return (result);
 }
 
 /*
@@ -61,7 +56,7 @@ int	get_point_colour(int start_colour, int end_colour, double diff)
 void	drawline(t_point start, t_point end, t_param par, double dx, double dy)
 {
 	int	colour;
-	
+
 	if (dx == 0)
 	{
 		if (start.coord.y > end.coord.y)
@@ -155,14 +150,13 @@ void	draw_brline(t_point start, t_point end, void *p_params)
 	t_param	params;
 
 	params = *((t_param_ptr)p_params);
-	dx = (end.coord.x > start.coord.x) ? (end.coord.x - start.coord.x) : (start.coord.x - end.coord.x);
-	dy = (end.coord.y > start.coord.y) ? (end.coord.y - start.coord.y) : (start.coord.y - end.coord.y);
+	dx = (end.coord.x > start.coord.x) ?
+		(end.coord.x - start.coord.x) : (start.coord.x - end.coord.x);
+	dy = (end.coord.y > start.coord.y) ?
+		(end.coord.y - start.coord.y) : (start.coord.y - end.coord.y);
 	if (dx == 0 || dy == 0)
-	{
 		drawline(start, end, params, dx, dy);
-		return ;
-	}
-	if (dx > dy)
+	else if (dx > dy)
 		draw_xline(start, end, params, dx, dy);
 	else
 		draw_yline(start, end, params, dx, dy);
