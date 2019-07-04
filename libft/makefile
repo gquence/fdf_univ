@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gquence <gquence@student.42.fr>            +#+  +:+       +#+         #
+#    By: gquence <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/06 05:49:36 by dmelessa          #+#    #+#              #
-#    Updated: 2019/05/08 17:53:54 by gquence          ###   ########.fr        #
+#    Updated: 2019/06/27 16:50:03 by gquence          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = get_next_line.c $(addprefix $(PREFIX), \
 	strmapi.c strequ.c strnequ.c strsub.c strjoin.c strtrim.c strsplit.c itoa.c \
 	putchar.c putstr.c putendl.c putnbr.c putchar_fd.c putstr_fd.c putendl_fd.c \
    putnbr_fd.c lstnew.c lstdelone.c lstdel.c lstadd.c lstiter.c lstmap.c isspace.c\
-   strndup.c sqrt.c ishex.c atoi_base.c)
+   strndup.c sqrt.c ishex.c atoi_base.c swap.c swap_d.c)
 FLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 OBJ=$(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 14:02:05 by dmelessa          #+#    #+#             */
-/*   Updated: 2019/06/26 18:26:56 by gquence          ###   ########.fr       */
+/*   Updated: 2019/07/04 15:40:44 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
 
@@ -40,6 +41,12 @@ typedef struct			s_point_2d
 	int x;
 	int y;
 }						t_point_2d;
+
+typedef struct			s_diff
+{
+	double	dx;
+	double	dy;
+}						t_diff;
 
 typedef struct			s_vec3
 {
@@ -77,12 +84,37 @@ typedef struct			s_param
 }						t_param;
 typedef struct s_param	*t_param_ptr;
 
+void					del_arr_splited(char ****p_arrsplited);
 int						read_field(int fd, t_param_ptr params);
 char					**strsplit1(char const *s);
 int						normalize_arr_double(t_point *arr);
 t_point					*convert_allpoints(char ***splitted,
 							int rows, int columns);
 void					draw_brline(t_point start, t_point end, void *p_params);
+int						get_point_colour(int start_colour,
+							int end_colour, int diff);
+t_mat3					get_rotate_mat_x(double angle);
+t_mat3					get_rotate_mat_y(double angle);
+t_mat3					get_rotate_mat_z(double angle);
+t_mat3					matrices_multi(const t_mat3_ptr mat1,
+							const t_mat3_ptr mat2);
+t_mat3					get_scaling_matrix(double c);
+t_mat3					get_rot_mat_xyz(double x,
+							double y, double z);
+
+t_vec3					vec_mat_multi(const t_vec3_ptr v,
+							const t_mat3_ptr m);
+t_vec3					get_transformed(const t_vec3_ptr v);
+t_vec3					rotate_z(const t_vec3_ptr v, double x);
+t_vec3					rotate_y(const t_vec3_ptr v, double x);
+t_vec3					rotate_x(const t_vec3_ptr v, double x);
+t_vec3					rotate_xyz(const t_vec3_ptr v,
+							double x, double y, double z);
+void					rotation(t_param_ptr pr, int keycode);
+void					projection(t_param_ptr pr, int keycode);
+void					scaling(t_param_ptr pr, int keycode);
+void					bonus(t_param_ptr pr, int keycode);
+
 
 # define KEY_A 0
 # define KEY_B 11

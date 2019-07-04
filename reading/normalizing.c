@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:47:33 by gquence           #+#    #+#             */
-/*   Updated: 2019/06/26 18:26:48 by gquence          ###   ########.fr       */
+/*   Updated: 2019/06/27 14:25:41 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	normalize_y(t_point *arr, double max, double min)
 	}
 }
 
-int	normalize_arr_double(t_point *arr)
+int			normalize_arr_double(t_point *arr)
 {
 	double	max;
 	double	min;
-	int	i;
+	int		i;
 
 	i = 0;
 	get_min_max(arr, &max, &min);
