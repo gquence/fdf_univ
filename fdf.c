@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 13:09:15 by gquence           #+#    #+#             */
-/*   Updated: 2019/07/04 15:40:46 by gquence          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:25:32 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_mat3	get_scaling_matrix(double c)
 		{
 			if (i == j)
 				rt.elems[i][j] = c;
-			else 
+			else
 				rt.elems[i][j] = 0;
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 15:54:23 by gquence           #+#    #+#             */
-/*   Updated: 2019/06/27 16:05:34 by gquence          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:20:54 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,20 @@ static char	***splited_join(char ****p_arrsplited, char *line, int count)
 		return (NULL);
 	result[count + 1] = NULL;
 	if (!(result[count] = strsplit1(line)))
+	{
+		free(result);
 		return (NULL);
+	}
 	if (buf[0] && get_splittedlen(result[count]) != get_splittedlen(buf[0]))
+	{
+		del_pp(&(result[count]));
+		free(result);
 		return (NULL);
+	}
 	while (--count != -1)
 		result[count] = buf[count];
 	free(*p_arrsplited);
+	*p_arrsplited = result;
 	return (result);
 }
 
@@ -59,7 +67,7 @@ static char	***get_splitted(int fd, t_param_ptr params)
 	counter1 = 0;
 	while (get_next_line(fd, &line))
 	{
-		if (!(splitted = splited_join(&splitted, line, params->n_lines)) ||
+		if (!(splited_join(&splitted, line, params->n_lines)) ||
 			(counter1 != (counter2 = get_splittedlen(*splitted)) && counter1))
 		{
 			del_arr_splited(&splitted);

@@ -6,7 +6,7 @@
 /*   By: gquence <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 14:02:05 by dmelessa          #+#    #+#             */
-/*   Updated: 2019/07/04 15:40:44 by gquence          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:19:18 by gquence          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct			s_param
 }						t_param;
 typedef struct s_param	*t_param_ptr;
 
+int						del_pp(char ***pparr);
 void					del_arr_splited(char ****p_arrsplited);
 int						read_field(int fd, t_param_ptr params);
 char					**strsplit1(char const *s);
